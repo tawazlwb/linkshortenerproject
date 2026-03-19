@@ -40,7 +40,7 @@ export default function RootLayout({
                       <Button variant="ghost">Sign In</Button>
                     </SignInButton>
                     <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
-                      <Button variant="ghost">Sign Up</Button>
+                      <Button>Sign Up</Button>
                     </SignUpButton>
                   </Show>
                   <Show when="signed-in">
