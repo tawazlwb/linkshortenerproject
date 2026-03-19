@@ -33,3 +33,4 @@ A full-stack link shortener built with Next.js 16 (App Router), React 19, TypeSc
 5. **Server Components are the default.** Only add `"use client"` when interaction or browser APIs are strictly required.
 6. **Environment variables are never hard-coded.** All secrets live in `.env.local` and are accessed via `process.env`.
 7. **Never commit `.env.local` or any file containing secrets.**
+8. **Never use `middleware.ts`.** This file is deprecated in Next.js 16 (the version used in this project). All proxy/routing logic must go in `proxy.ts` instead.
