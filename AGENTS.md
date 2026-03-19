@@ -1,6 +1,6 @@
 # Agent Instructions — Link Shortener Project
 
-This file is the authoritative entry point for LLM agents working on this codebase. All coding standards, conventions, and architectural decisions are documented in the `/docs` directory. **Read the relevant docs file before making any changes to the corresponding area of the codebase.**
+This file is the authoritative entry point for LLM agents working on this codebase. All coding standards, conventions, and architectural decisions are documented in the `/docs` directory. **ALWAYS Refer to the relevant docs file BEFORE generating or making any changes to the corresponding area of the codebase.**
 
 ## Project Overview
 
@@ -10,13 +10,9 @@ A full-stack link shortener built with Next.js 16 (App Router), React 19, TypeSc
 
 | File | What it covers |
 |------|----------------|
-| [docs/tech-stack.md](docs/tech-stack.md) | All dependencies with versions and their intended roles |
-| [docs/project-structure.md](docs/project-structure.md) | Folder layout, naming conventions, and file placement rules |
-| [docs/coding-standards.md](docs/coding-standards.md) | TypeScript, React, and general code style rules |
-| [docs/database.md](docs/database.md) | Drizzle ORM schema, migrations, and query patterns |
-| [docs/auth.md](docs/auth.md) | Clerk authentication setup, middleware, and protected routes |
-| [docs/ui-components.md](docs/ui-components.md) | shadcn/ui, Tailwind CSS v4, CVA, and `cn()` usage |
-| [docs/api-and-server-actions.md](docs/api-and-server-actions.md) | Next.js Route Handlers and Server Actions patterns |
+| [docs/auth.md](docs/auth.md) | Clerk authentication, route protection, redirects, modal sign-in/sign-up |
+| [docs/ui.md](docs/ui.md) | shadcn/ui components, adding new components, icons, styling conventions |
+
 
 ## Non-Negotiable Rules
 
