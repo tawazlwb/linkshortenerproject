@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider, SignInButton, SignUpButton, UserButton, Show } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/mode-toggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,32 +27,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
-        <ClerkProvider>
-          <header className="border-b">
-            <div className="container mx-auto flex items-center justify-between p-4">
-              <h1 className="text-xl font-bold">Link Shortener</h1>
-              <div className="flex items-center gap-4">
-                <Show when="signed-out">
-                  <SignInButton mode="modal" forceRedirectUrl="/dashboard">
-                    <Button variant="ghost">Sign In</Button>
-                  </SignInButton>
-                  <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
-                    <Button variant="ghost">Sign Up</Button>
-                  </SignUpButton>
-                </Show>
-                <Show when="signed-in">
-                  <UserButton />
-                </Show>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ClerkProvider>
+            <header className="border-b">
+              <div className="container mx-auto flex items-center justify-between p-4">
+                <h1 className="text-xl font-bold">Link Shortener</h1>
+                <div className="flex items-center gap-4">
+                  <Show when="signed-out">
+                    <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+                      <Button variant="ghost">Sign In</Button>
+                    </SignInButton>
+                    <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
+                      <Button variant="ghost">Sign Up</Button>
+                    </SignUpButton>
+                  </Show>
+                  <Show when="signed-in">
+                    <UserButton />
+                  </Show>
+                  <ModeToggle />
+                </div>
               </div>
-            </div>
-          </header>
-          {children}
-        </ClerkProvider>
+            </header>
+            {children}
+          </ClerkProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
