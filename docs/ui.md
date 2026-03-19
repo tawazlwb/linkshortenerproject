@@ -4,6 +4,7 @@ All UI elements in this project must use **shadcn/ui** components. Creating cust
 
 ## Rules
 
+- **All shadcn/ui components MUST be generated in `components/ui/` folder only.** No exceptions.
 - Always import UI components from `@/components/ui`. Never recreate what shadcn already provides.
 - If a required component is not yet installed, add it with the CLI — do **not** build it manually.
 - Prefer composition of existing shadcn primitives over writing new JSX from scratch.
