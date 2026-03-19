@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ClerkProvider, SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
+import { ClerkProvider, SignInButton, SignUpButton, UserButton, Show } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,14 +31,23 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ClerkProvider>
-          <header>
-            <Show when="signed-out">
-              <SignInButton />
-              <SignUpButton />
-            </Show>
-            <Show when="signed-in">
-              <UserButton />
-            </Show>
+          <header className="border-b">
+            <div className="container mx-auto flex items-center justify-between p-4">
+              <h1 className="text-xl font-bold">Link Shortener</h1>
+              <div className="flex items-center gap-4">
+                <Show when="signed-out">
+                  <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+                    <Button variant="ghost">Sign In</Button>
+                  </SignInButton>
+                  <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
+                    <Button variant="ghost">Sign Up</Button>
+                  </SignUpButton>
+                </Show>
+                <Show when="signed-in">
+                  <UserButton />
+                </Show>
+              </div>
+            </div>
           </header>
           {children}
         </ClerkProvider>

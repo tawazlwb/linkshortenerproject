@@ -13,22 +13,31 @@ All authentication in this project is handled exclusively by **Clerk**. No other
 ## Route Protection
 
 - `/dashboard` is a **protected route**. Access requires an authenticated session.
-- Protection is enforced via `clerkMiddleware` in `proxy.ts`, using `createRouteMatcher`:
+- Protection is enforced via `clerkMiddleware` in `proxy.ts` (Next.js 16 uses `proxy.ts` instead of `middleware.ts`), using `createRouteMatcher`:
 
 ```ts
 // proxy.ts
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) await auth.protect();
+  if (isProtectedRoute(req)) {
+    const { userId } = await auth();
+    if (!userId) return NextResponse.redirect(new URL("/", req.url));
+  }
 });
 
 export const config = {
-  matcher: ["/((?!_next|.*\\..*).*)"],
+  matcher: [
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
+  ],
 };
 ```
+
+> **Never use `auth.protect()`** — it redirects to Clerk's hosted sign-in page. Always redirect to `/` instead so that sign-in opens as a modal.
 
 ## Redirects
 
@@ -54,11 +63,11 @@ export default async function Home() {
 - Do **not** create `/sign-in` or `/sign-up` route pages.
 
 ```tsx
-<SignInButton mode="modal">
+<SignInButton mode="modal" forceRedirectUrl="/dashboard">
   <Button>Sign In</Button>
 </SignInButton>
 
-<SignUpButton mode="modal">
+<SignUpButton mode="modal" forceRedirectUrl="/dashboard">
   <Button>Sign Up</Button>
 </SignUpButton>
 ```
